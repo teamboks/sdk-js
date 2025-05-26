@@ -1,7 +1,5 @@
 import { API_CONFIG } from '../constants';
 
-import { apiKey as apiKeyFromGlobal } from './index';
-
 interface PermissionCheckParams {
   feature: string;
   action: string;
@@ -13,10 +11,8 @@ export const check = async ({
   feature,
   action,
   role,
-  apiKey: apiKeyFromContext,
+  apiKey,
 }: PermissionCheckParams): Promise<{ status: number }> => {
-  const apiKey = apiKeyFromContext ?? apiKeyFromGlobal;
-
   if (!apiKey) {
     throw new Error('Missing API key.');
   }
