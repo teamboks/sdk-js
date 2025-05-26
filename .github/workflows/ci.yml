@@ -43,8 +43,8 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist/
+          name: react-dist
+          path: packages/react/dist/
 
   publish:
     needs: build
@@ -65,13 +65,16 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: dist
-          path: dist/
+          name: react-dist
+          path: packages/react/dist/
 
       - name: Publish to NPM
-        run: pnpm publish
+        run: cd packages/react && pnpm publish --no-git-checks --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
