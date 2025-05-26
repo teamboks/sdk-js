@@ -1,0 +1,27 @@
+{
+  "name": "@teamboks/tsconfig",
+  "version": "0.0.0",
+  "description": "Shared TypeScript configurations for Teamboks SDK packages",
+  "main": "base.json",
+  "files": [
+    "base.json",
+    "react.json",
+    "vue.json",
+    "svelte.json",
+    "angular.json",
+    "node.json"
+  ],
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "teamboks"
+  ],
+  "author": "Teamboks",
+  "license": "MIT",
+  "peerDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

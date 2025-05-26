@@ -1,0 +1,33 @@
+{
+  "name": "@teamboks/eslint-config",
+  "version": "0.0.0",
+  "description": "Shared ESLint configuration for Teamboks SDK packages",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "react.js",
+    "vue.js",
+    "svelte.js",
+    "angular.js"
+  ],
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "teamboks"
+  ],
+  "author": "Teamboks",
+  "license": "MIT",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint-config-prettier": "^9.1.0"
+  },
+  "peerDependencies": {
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}

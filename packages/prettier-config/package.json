@@ -1,0 +1,22 @@
+{
+  "name": "@teamboks/prettier-config",
+  "version": "0.0.0",
+  "description": "Shared Prettier configuration for Teamboks SDK packages",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "prettier",
+    "prettierconfig",
+    "teamboks"
+  ],
+  "author": "Teamboks",
+  "license": "MIT",
+  "peerDependencies": {
+    "prettier": "^3.2.5"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
