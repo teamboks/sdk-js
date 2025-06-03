@@ -86,12 +86,11 @@ jobs:
           name: react-dist
           path: packages/react/dist/
 
-      - name: Publish core package to NPM
-        run: cd packages/core && pnpm publish --no-git-checks --ignore-scripts
+      - name: Create Release Pull Request or Publish to NPM
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm run release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish react package to NPM
-        run: cd packages/react && pnpm publish --no-git-checks --ignore-scripts
-        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
