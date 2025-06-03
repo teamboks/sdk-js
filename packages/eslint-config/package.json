@@ -1,6 +1,6 @@
 {
   "name": "@teamboks/eslint-config",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Shared ESLint configuration for Teamboks SDK packages",
   "main": "index.js",
   "files": [
