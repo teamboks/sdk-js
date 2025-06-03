@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { check } from '../services/permissions';
+import { permissions } from '@teamboks/core';
 import useTeamboks from './useTeamboks';
 
 interface UsePermissionParams {
@@ -26,7 +26,7 @@ const usePermission = ({ feature, action, role }: UsePermissionParams): UsePermi
 
     const checkPermission = async () => {
       try {
-        const { status } = await check({
+        const { status } = await permissions.check({
           feature,
           action,
           role,

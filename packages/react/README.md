@@ -5,12 +5,14 @@ A React SDK for managing permissions in Teamboks applications.
 ## Installation
 
 ```bash
-npm install @teamboks/react
+npm install @teamboks/react @teamboks/core
 # or
-yarn add @teamboks/react
+yarn add @teamboks/react @teamboks/core
 ```
 
 ## Usage
+
+This package provides React-specific functionality (hooks, components, context). For core functionality like API configuration and direct permission checking, use `@teamboks/core`.
 
 First, wrap your app with the `TeamboksProvider` and provide your API key:
 
@@ -36,15 +38,18 @@ Then use the `usePermission` hook to check permissions in your components:
 import { usePermission } from '@teamboks/react';
 
 function MyComponent() {
-  const canEdit = usePermission({
+  const { canActivate, isLoading, error } = usePermission({
     feature: 'users',
     action: 'edit',
     role: 'admin'
   });
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div>
-      {canEdit ? (
+      {canActivate ? (
         <button>Edit User</button>
       ) : (
         <p>You don't have permission to edit users</p>
@@ -52,6 +57,24 @@ function MyComponent() {
     </div>
   );
 }
+```
+
+For direct API usage without React hooks, use the core package:
+
+```typescript
+import { init, permissions, API_CONFIG } from '@teamboks/core';
+
+// Initialize with API key
+init('your-api-key');
+
+// Check permissions directly
+const result = await permissions.check({
+  feature: 'users',
+  action: 'edit',
+  role: 'admin'
+});
+
+console.log('Permission granted:', result.status === 200);
 ```
 
 ## API Reference
@@ -67,7 +90,7 @@ A React provider component that initializes the SDK with your API key and makes 
 
 ### `usePermission({ feature: string, action: string, role: string })`
 
-A React hook that returns a boolean indicating whether the current user has permission to perform the specified action.
+A React hook that returns permission status with loading and error states.
 
 #### Parameters
 
@@ -77,7 +100,7 @@ A React hook that returns a boolean indicating whether the current user has perm
 
 #### Returns
 
-- `boolean`: Whether the user has permission
+- `{ canActivate: boolean, isLoading: boolean, error: Error | null }`
 
 ### `useTeamboks()`
 
@@ -86,6 +109,14 @@ A React hook that returns the Teamboks context, providing access to the current 
 #### Returns
 
 - `{ apiKey: string }`: The current Teamboks context
+
+## Core Functionality
+
+For framework-agnostic functionality, see [`@teamboks/core`](../core/README.md):
+- API configuration and constants
+- Direct permission checking
+- API key management
+- TypeScript types
 
 ## Development
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { usePermission } from '../hooks';
 import { TeamboksProvider } from '../components';
-import { API_CONFIG } from '../constants';
+import { API_CONFIG } from '@teamboks/core';
 
 // Create a wrapper component for the provider
 const createWrapper = (apiKey: string) => {

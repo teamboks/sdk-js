@@ -1,18 +1,12 @@
 import { API_CONFIG } from '../constants';
-
-interface PermissionCheckParams {
-  feature: string;
-  action: string;
-  role: string;
-  apiKey?: string | null;
-}
+import type { PermissionCheckParams, PermissionCheckResponse } from '../types';
 
 export const check = async ({
   feature,
   action,
   role,
   apiKey,
-}: PermissionCheckParams): Promise<{ status: number }> => {
+}: PermissionCheckParams): Promise<PermissionCheckResponse> => {
   if (!apiKey) {
     throw new Error('Missing API key.');
   }
