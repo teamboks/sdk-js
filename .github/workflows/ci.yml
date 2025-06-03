@@ -40,7 +40,13 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Upload build artifacts
+      - name: Upload core build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-dist
+          path: packages/core/dist/
+
+      - name: Upload react build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: react-dist
@@ -68,13 +74,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Download build artifacts
+      - name: Download core build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: core-dist
+          path: packages/core/dist/
+
+      - name: Download react build artifacts
         uses: actions/download-artifact@v4
         with:
           name: react-dist
           path: packages/react/dist/
 
-      - name: Publish to NPM
+      - name: Publish core package to NPM
+        run: cd packages/core && pnpm publish --no-git-checks --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish react package to NPM
         run: cd packages/react && pnpm publish --no-git-checks --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
