@@ -7,4 +7,7 @@ export interface PermissionCheckParams {
 
 export interface PermissionCheckResponse {
   status: number;
+  canActivate: boolean;
+  error?: string;
+  message?: string;
 }

@@ -27,9 +27,15 @@ export const check = async ({
 
     if (response.ok) {
       const data = await response.json();
-      return data;
+      return { status: response.status, canActivate: data === true };
     } else {
-      return { status: response.status };
+      const errorData = await response.json();
+      return {
+        status: response.status,
+        canActivate: false,
+        error: errorData.error,
+        message: errorData.message,
+      };
     }
   } catch (error) {
     console.error('Network error during permission check:', error);

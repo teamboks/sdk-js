@@ -26,7 +26,7 @@ const usePermission = ({ feature, action, role }: UsePermissionParams): UsePermi
 
     const checkPermission = async () => {
       try {
-        const { status } = await permissions.check({
+        const { canActivate } = await permissions.check({
           feature,
           action,
           role,
@@ -34,7 +34,7 @@ const usePermission = ({ feature, action, role }: UsePermissionParams): UsePermi
         });
 
         if (isMounted) {
-          setCanActivate(status === 200 ? true : false);
+          setCanActivate(canActivate);
           setError(null);
         }
       } catch (err) {
