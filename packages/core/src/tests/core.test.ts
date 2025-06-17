@@ -1,7 +1,17 @@
+/// <reference types="jest" />
+
+import type { jest } from '@jest/globals';
 import { init, apiKey, permissions, API_CONFIG } from '../index';
 
+// Extend the global object with fetch
+declare global {
+  // eslint-disable-next-line no-var
+  var fetch: jest.Mock;
+}
+
 // Mock fetch globally
-global.fetch = jest.fn();
+const mockFetch = jest.fn();
+global.fetch = mockFetch;
 
 describe('@teamboks/core', () => {
   beforeEach(() => {
@@ -35,12 +45,13 @@ describe('@teamboks/core', () => {
       ).rejects.toThrow('Missing API key.');
     });
 
-    it('should make API call with correct parameters', async () => {
+    it('should handle successful API response', async () => {
       const mockResponse = {
         ok: true,
-        json: () => Promise.resolve({ status: 200 }),
+        status: 200,
+        json: () => Promise.resolve(true),
       };
-      (global.fetch as jest.Mock).mockResolvedValueOnce(mockResponse);
+      mockFetch.mockResolvedValueOnce(mockResponse as Response);
 
       const result = await permissions.check({
         feature: 'dashboard',
@@ -49,7 +60,7 @@ describe('@teamboks/core', () => {
         apiKey: 'test-key',
       });
 
-      expect(global.fetch).toHaveBeenCalledWith(
+      expect(mockFetch).toHaveBeenCalledWith(
         expect.stringContaining('https://core.teamboks.com/v1/permissions'),
         expect.objectContaining({
           headers: {
@@ -59,7 +70,38 @@ describe('@teamboks/core', () => {
         })
       );
 
-      expect(result).toEqual({ status: 200 });
+      expect(result).toEqual({
+        status: 200,
+        canActivate: true,
+      });
+    });
+
+    it('should handle forbidden API response', async () => {
+      const mockResponse = {
+        ok: false,
+        status: 403,
+        json: () =>
+          Promise.resolve({
+            message: 'No permission found',
+            error: 'Forbidden',
+            statusCode: 403,
+          }),
+      };
+      mockFetch.mockResolvedValueOnce(mockResponse as Response);
+
+      const result = await permissions.check({
+        feature: 'dashboard',
+        action: 'write',
+        role: 'user',
+        apiKey: 'test-key',
+      });
+
+      expect(result).toEqual({
+        status: 403,
+        canActivate: false,
+        error: 'Forbidden',
+        message: 'No permission found',
+      });
     });
   });
 });
