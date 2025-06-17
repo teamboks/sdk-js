@@ -22,7 +22,7 @@ describe('usePermission', () => {
     // Mock successful API response
     (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve({ status: 200 }),
+      json: () => Promise.resolve(true),
     } as Response);
 
     const wrapper = createWrapper('test-api-key');
@@ -54,10 +54,16 @@ describe('usePermission', () => {
   });
 
   it('should return false when permission is denied', async () => {
-    // Mock failed API response
+    // Mock forbidden API response
     (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve({ status: 403 }),
+      ok: false,
+      status: 403,
+      json: () =>
+        Promise.resolve({
+          message: 'No permission found',
+          error: 'Forbidden',
+          statusCode: 403,
+        }),
     } as Response);
 
     const wrapper = createWrapper('test-api-key');
