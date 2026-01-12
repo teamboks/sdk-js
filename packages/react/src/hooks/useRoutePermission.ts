@@ -3,25 +3,23 @@ import { useEffect, useState } from 'react';
 import { permissions } from '@teamboks/core';
 import useTeamboks from './useTeamboks';
 
-interface UsePermissionParams {
+interface UseRoutePermissionParams {
   feature: string;
-  action: string;
   role: string;
   segmentId?: string | null;
 }
 
-interface UsePermissionResult {
+interface UseRoutePermissionResult {
   canActivate: boolean;
   isLoading: boolean;
   error: Error | null;
 }
 
-const usePermission = ({
+const useRoutePermission = ({
   feature,
-  action,
   role,
   segmentId = null,
-}: UsePermissionParams): UsePermissionResult => {
+}: UseRoutePermissionParams): UseRoutePermissionResult => {
   const [canActivate, setCanActivate] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -30,11 +28,10 @@ const usePermission = ({
   useEffect(() => {
     let isMounted = true;
 
-    const checkPermission = async () => {
+    const checkRoutePermission = async () => {
       try {
-        const { canActivate } = await permissions.check({
+        const { canActivate } = await permissions.checkRoute({
           feature,
-          action,
           role,
           apiKey,
           segmentId,
@@ -56,19 +53,18 @@ const usePermission = ({
       }
     };
 
-    checkPermission();
+    checkRoutePermission();
     return () => {
       isMounted = false;
     };
-  }, [feature, action, role, apiKey, segmentId]);
+  }, [feature, role, apiKey, segmentId]);
 
   // Only log actual errors, not permission denials
-  // Permission denials are now handled gracefully in the service
   if (error) {
-    console.error('Permission check error:', error);
+    console.error('Route permission check error:', error);
   }
 
   return { canActivate, isLoading, error };
 };
 
-export default usePermission;
+export default useRoutePermission;
