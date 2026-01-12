@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
 
-import useRoutePermission from '../hooks/useRoutePermission';
+import usePermission from '../hooks/usePermission';
 
 interface ProtectedRouteProps {
   feature: string;
+  action: string;
   role: string;
   segmentId?: string | null;
   children: ReactNode;
@@ -13,14 +14,16 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   feature,
+  action,
   role,
   segmentId = null,
   children,
   fallback = null,
   loadingFallback = null,
 }) => {
-  const { canActivate, isLoading, error } = useRoutePermission({
+  const { canActivate, isLoading, error } = usePermission({
     feature,
+    action,
     role,
     segmentId,
   });

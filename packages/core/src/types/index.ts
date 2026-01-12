@@ -13,16 +13,3 @@ export interface PermissionCheckResponse {
   message?: string;
 }
 
-export interface PermissionCheckRouteParams {
-  feature: string;
-  role: string;
-  apiKey?: string | null;
-  segmentId?: string | null;
-}
-
-export interface PermissionCheckRouteResponse {
-  status: number;
-  canActivate: boolean;
-  error?: string;
-  message?: string;
-}
