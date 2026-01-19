@@ -7,3 +7,4 @@ export const init = (key: string): void => {
 export { apiKey };
 
 export * as permissions from './permissions';
+export * as features from './features';

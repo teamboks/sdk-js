@@ -1,12 +1,10 @@
 import React, { ReactNode } from 'react';
 
-import usePermission from '../hooks/usePermission';
+import useFeature from '../hooks/useFeature';
 
 interface ProtectedRouteProps {
   feature: string;
-  action: string;
-  role: string;
-  segmentId?: string | null;
+  segment?: string | null;
   children: ReactNode;
   fallback?: ReactNode;
   loadingFallback?: ReactNode;
@@ -14,28 +12,23 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   feature,
-  action,
-  role,
-  segmentId = null,
+  segment = null,
   children,
   fallback = null,
   loadingFallback = null,
 }) => {
-  const { canActivate, isLoading, error } = usePermission({
+  const { isEnabled, isLoading, error } = useFeature({
     feature,
-    action,
-    role,
-    segmentId,
+    segment,
   });
 
   if (isLoading) {
     return <>{loadingFallback}</>;
   }
 
-  if (!canActivate || error) {
+  if (!isEnabled || error) {
     return <>{fallback}</>;
   }
 
-  // Render children if permission is granted
   return <>{children}</>;
 };

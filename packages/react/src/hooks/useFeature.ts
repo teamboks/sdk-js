@@ -1,28 +1,21 @@
 import { useEffect, useState } from 'react';
 
-import { permissions } from '@teamboks/core';
+import { features } from '@teamboks/core';
 import useTeamboks from './useTeamboks';
 
-interface UsePermissionParams {
+interface UseFeatureParams {
   feature: string;
-  action: string;
-  role: string;
   segment?: string | null;
 }
 
-interface UsePermissionResult {
-  canActivate: boolean;
+interface UseFeatureResult {
+  isEnabled: boolean;
   isLoading: boolean;
   error: Error | null;
 }
 
-const usePermission = ({
-  feature,
-  action,
-  role,
-  segment = null,
-}: UsePermissionParams): UsePermissionResult => {
-  const [canActivate, setCanActivate] = useState<boolean>(false);
+const useFeature = ({ feature, segment = null }: UseFeatureParams): UseFeatureResult => {
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const { apiKey } = useTeamboks();
@@ -30,24 +23,22 @@ const usePermission = ({
   useEffect(() => {
     let isMounted = true;
 
-    const checkPermission = async () => {
+    const checkFeature = async () => {
       try {
-        const { canActivate } = await permissions.check({
+        const { isEnabled } = await features.check({
           feature,
-          action,
-          role,
           apiKey,
           segment,
         });
 
         if (isMounted) {
-          setCanActivate(canActivate);
+          setIsEnabled(isEnabled);
           setError(null);
         }
       } catch (err) {
         if (isMounted) {
           setError(err instanceof Error ? err : new Error('Unknown error occurred'));
-          setCanActivate(false);
+          setIsEnabled(false);
         }
       } finally {
         if (isMounted) {
@@ -56,17 +47,17 @@ const usePermission = ({
       }
     };
 
-    checkPermission();
+    checkFeature();
     return () => {
       isMounted = false;
     };
-  }, [feature, action, role, apiKey, segment]);
+  }, [feature, apiKey, segment]);
 
   if (error) {
-    console.error('Permission check error:', error);
+    console.error('Feature check error:', error);
   }
 
-  return { canActivate, isLoading, error };
+  return { isEnabled, isLoading, error };
 };
 
-export default usePermission;
+export default useFeature;

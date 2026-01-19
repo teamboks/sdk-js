@@ -3,7 +3,7 @@ export interface PermissionCheckParams {
   action: string;
   role: string;
   apiKey?: string | null;
-  segmentId?: string | null;
+  segment?: string | null;
 }
 
 export interface PermissionCheckResponse {
@@ -13,3 +13,15 @@ export interface PermissionCheckResponse {
   message?: string;
 }
 
+export interface FeatureCheckParams {
+  feature: string;
+  apiKey?: string | null;
+  segment?: string | null;
+}
+
+export interface FeatureCheckResponse {
+  status: number;
+  isEnabled: boolean;
+  error?: string;
+  message?: string;
+}

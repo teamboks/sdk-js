@@ -1,7 +1,7 @@
 {
-  "name": "@teamboks/core",
-  "version": "0.3.0",
-  "description": "Teamboks Core SDK - Framework-agnostic permission management",
+  "name": "@teamboks/platform",
+  "version": "0.1.0",
+  "description": "Teamboks Platform SDK - API client for community platform management",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -55,25 +55,5 @@
     "ts-jest": "^29.0.0",
     "tslib": "^2.6.0",
     "typescript": "^5.3.3"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "permissions",
-    "teamboks",
-    "sdk",
-    "core"
-  ],
-  "author": "Teamboks",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/teamboks/teamboks-sdk-js.git",
-    "directory": "packages/core"
-  },
-  "bugs": {
-    "url": "https://github.com/teamboks/teamboks-sdk-js/issues"
-  },
-  "homepage": "https://github.com/teamboks/teamboks-sdk-js/tree/main/packages/core#readme"
+  }
 }
