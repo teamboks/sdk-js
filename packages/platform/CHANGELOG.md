@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- 238bb22: Added useFeature() hook to do feature flags and introduced ProtectedRoute component
+
 ## 1.0.0
 
 ### Major Changes
