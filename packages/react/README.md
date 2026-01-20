@@ -32,7 +32,9 @@ function Root() {
 export default Root;
 ```
 
-Then use the `usePermission` hook to check permissions in your components:
+### Using the `usePermission` Hook
+
+Check permissions in your components:
 
 ```typescript
 import { usePermission } from '@teamboks/react';
@@ -59,6 +61,59 @@ function MyComponent() {
 }
 ```
 
+### Using the `useFeature` Hook
+
+Check if a feature is enabled (optionally for the a specific segment):
+
+```typescript
+import { useFeature } from '@teamboks/react';
+
+function FeatureComponent() {
+  const { isEnabled, isLoading, error } = useFeature({
+    feature: 'advanced-analytics',
+    segment: 'workspace-123' // optional
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      {isEnabled ? (
+        <div>Advanced Analytics Panel</div>
+      ) : (
+        <p>This feature is not available</p>
+      )}
+    </div>
+  );
+}
+```
+
+### Using the `ProtectedRoute` Component
+
+Conditionally render content based on feature availability:
+
+```typescript
+import { ProtectedRoute } from '@teamboks/react';
+
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      <ProtectedRoute
+        feature="premium-dashboard"
+        segment="workspace-123"
+        loadingFallback={<div>Loading dashboard...</div>}
+        fallback={<p>Premium dashboard is not available</p>}
+      >
+        <div>Premium Dashboard Content</div>
+      </ProtectedRoute>
+    </div>
+  );
+}
+```
+
 For direct API usage without React hooks, use the core package:
 
 ```typescript
@@ -71,7 +126,7 @@ init('your-api-key');
 const result = await permissions.check({
   feature: 'users',
   action: 'edit',
-  role: 'admin'
+  role: 'admin',
 });
 
 console.log('Permission granted:', result.status === 200);
@@ -102,6 +157,43 @@ A React hook that returns permission status with loading and error states.
 
 - `{ canActivate: boolean, isLoading: boolean, error: Error | null }`
 
+### `useFeature({ feature: string, segment?: string | null })`
+
+A React hook that checks if a feature is enabled for the current workspace.
+
+#### Parameters
+
+- `feature`: The feature name to check
+- `segment`: Optional workspace/segment identifier
+
+#### Returns
+
+- `{ isEnabled: boolean, isLoading: boolean, error: Error | null }`
+
+### `<ProtectedRoute feature={string} segment?={string | null} fallback?={ReactNode} loadingFallback?={ReactNode}>`
+
+A React component that conditionally renders children based on feature availability.
+
+#### Props
+
+- `feature`: The feature name to check
+- `segment`: Optional workspace/segment identifier
+- `children`: Content to render if feature is enabled
+- `fallback`: Content to render if feature is disabled (default: null)
+- `loadingFallback`: Content to render while checking feature status (default: null)
+
+#### Example
+
+```tsx
+<ProtectedRoute
+  feature="premium-dashboard"
+  loadingFallback={<div>Loading...</div>}
+  fallback={<div>Feature not available</div>}
+>
+  <PremiumDashboard />
+</ProtectedRoute>
+```
+
 ### `useTeamboks()`
 
 A React hook that returns the Teamboks context, providing access to the current API key.
@@ -113,6 +205,7 @@ A React hook that returns the Teamboks context, providing access to the current 
 ## Core Functionality
 
 For framework-agnostic functionality, see [`@teamboks/core`](../core/README.md):
+
 - API configuration and constants
 - Direct permission checking
 - API key management
