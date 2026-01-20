@@ -1,8 +1,8 @@
-import { createTeamboksClient, TeamboksClient } from '../client';
+import { createTeamboksPlatform, TeamboksPlatform } from '../platform';
 
-describe('TeamboksClient', () => {
+describe('TeamboksPlatform', () => {
   it('should create a client with apiKey', () => {
-    const client = createTeamboksClient({ apiKey: 'test-key' });
+    const client = createTeamboksPlatform({ apiKey: 'test-key' });
     expect(client).toBeDefined();
     expect(client.workspaces).toBeDefined();
   });
@@ -10,7 +10,7 @@ describe('TeamboksClient', () => {
   it('should throw if apiKey is missing', () => {
     expect(
       () =>
-        new TeamboksClient({
+        new TeamboksPlatform({
           apiKey: '',
         })
     ).toThrow('apiKey is required');

@@ -1,17 +1,17 @@
-# @teamboks/client
+# @teamboks/platform
 
-Teamboks Client SDK - API client for community platform management.
+Teamboks Platform SDK - API client for community platform management.
 
 This package provides a Prisma-like interface for interacting with the Teamboks API, allowing you to manage workspaces, features, roles, actions, and users programmatically.
 
 ## Installation
 
 ```bash
-npm install @teamboks/client
+npm install @teamboks/platform
 # or
-yarn add @teamboks/client
+yarn add @teamboks/platform
 # or
-pnpm add @teamboks/client
+pnpm add @teamboks/platform
 ```
 
 ## Usage
@@ -19,9 +19,9 @@ pnpm add @teamboks/client
 ### Initialize the Client
 
 ```typescript
-import { createTeamboksClient } from '@teamboks/client';
+import { createTeamboksPlatform } from '@teamboks/platform';
 
-const teamboks = createTeamboksClient({
+const teamboks = createTeamboksPlatform({
   apiKey: process.env.TEAMBOKS_API_KEY,
   baseUrl: 'https://api.teamboks.com', // optional
 });

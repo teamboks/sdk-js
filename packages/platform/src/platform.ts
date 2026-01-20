@@ -1,13 +1,13 @@
 import { WorkspacesClient } from './workspaces/client';
 
-export interface TeamboksClientConfig {
+export interface TeamboksPlatformConfig {
   apiKey: string;
 }
 
-export class TeamboksClient {
+export class TeamboksPlatform {
   public workspaces: WorkspacesClient;
 
-  constructor(config: TeamboksClientConfig) {
+  constructor(config: TeamboksPlatformConfig) {
     if (!config.apiKey) {
       throw new Error('apiKey is required');
     }
@@ -16,6 +16,6 @@ export class TeamboksClient {
   }
 }
 
-export const createTeamboksClient = (config: TeamboksClientConfig): TeamboksClient => {
-  return new TeamboksClient(config);
+export const createTeamboksPlatform = (config: TeamboksPlatformConfig): TeamboksPlatform => {
+  return new TeamboksPlatform(config);
 };
