@@ -23,7 +23,6 @@ import { createTeamboksPlatform } from '@teamboks/platform';
 
 const teamboks = createTeamboksPlatform({
   apiKey: process.env.TEAMBOKS_API_KEY,
-  baseUrl: 'https://api.teamboks.com', // optional
 });
 ```
 
