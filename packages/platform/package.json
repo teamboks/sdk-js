@@ -1,6 +1,6 @@
 {
   "name": "@teamboks/platform",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Teamboks Platform SDK - API client for community platform management",
   "type": "module",
   "main": "./dist/index.cjs",

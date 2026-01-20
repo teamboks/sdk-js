@@ -1,6 +1,6 @@
 {
   "name": "@teamboks/react",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "Teamboks React SDK for permission management",
   "type": "module",
   "main": "dist/index.js",
