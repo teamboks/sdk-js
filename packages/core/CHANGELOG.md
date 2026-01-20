@@ -1,5 +1,11 @@
 # @teamboks/core
 
+## 1.0.0
+
+### Major Changes
+
+- Added feature flags check
+
 ## 0.3.0
 
 ### Minor Changes
