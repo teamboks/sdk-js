@@ -1,6 +1,6 @@
-export const API_CONFIG = {
+export const API_CONFIG = Object.freeze({
   BASE_URL: 'https://core.teamboks.com',
-  ENDPOINTS: {
+  ENDPOINTS: Object.freeze({
     WORKSPACES: '/v1/workspaces',
-  },
-} as const;
+  }),
+});

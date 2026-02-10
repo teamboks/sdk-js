@@ -1,13 +1,5 @@
 import { API_CONFIG } from '../constants';
-import type {
-  Workspace,
-  CreateWorkspaceInput,
-  UpdateWorkspaceParams,
-  FindUniqueWorkspaceInput,
-  DeleteWorkspaceInput,
-  WorkspacesResponse,
-  FindManyWorkspacesInput,
-} from '../types/workspaces';
+import type { Workspace, CreateWorkspaceInput, UpdateWorkspaceParams, FindUniqueWorkspaceInput, DeleteWorkspaceInput, WorkspacesResponse, FindManyWorkspacesInput } from '../types/workspaces';
 
 export class WorkspacesClient {
   private apiKey: string;
