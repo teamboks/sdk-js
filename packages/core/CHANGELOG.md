@@ -1,5 +1,11 @@
 # @teamboks/core
 
+## 2.0.0
+
+### Major Changes
+
+- Webhooks construct event and json validation logic
+
 ## 1.0.0
 
 ### Major Changes

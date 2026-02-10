@@ -8,3 +8,5 @@ export { apiKey };
 
 export * as permissions from './permissions';
 export * as features from './features';
+export * as webhooks from './webhooks';
+export { SignatureVerificationError } from './webhooks';

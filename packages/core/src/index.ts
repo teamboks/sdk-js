@@ -7,5 +7,6 @@ export * from './types';
 // Services
 export * from './services';
 
-export { createTeamboksCore, TeamboksCore } from './client';
+// Client
+export { createTeamboksCore, TeamboksCore, WebhooksClient } from './client';
 export type { TeamboksCoreConfig } from './client';
