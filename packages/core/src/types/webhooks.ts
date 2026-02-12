@@ -16,27 +16,21 @@ export interface AccountData {
   lastName: string;
   platformData: string;
   language: string;
-  createdAt: string;
-  updatedAt: string;
-  isArchived: boolean;
 }
 
 export interface WorkspaceData {
   id: string;
   name: string;
   description: string;
+  expiresAt: string;
   platformData: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface ActivityData {
   id: string;
-  type: string;
-  accountId: string;
+  name: string;
   description: string;
-  metadata: string;
-  createdAt: string;
+  platformData: string;
 }
 
 interface WebhookEventBase<TData> {
