@@ -1,5 +1,11 @@
 # @teamboks/core
 
+## 3.0.0
+
+### Major Changes
+
+- 0d8ee93: type changes
+
 ## 2.0.0
 
 ### Major Changes

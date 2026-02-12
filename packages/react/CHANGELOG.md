@@ -1,5 +1,12 @@
 # @teamboks/react
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [0d8ee93]
+  - @teamboks/core@3.0.0
+
 ## 1.0.0
 
 ### Major Changes
