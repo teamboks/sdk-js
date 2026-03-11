@@ -1,4 +1,5 @@
 import { WorkspacesClient } from './workspaces/client';
+import { UsersClient } from './users/client';
 
 export interface TeamboksPlatformConfig {
   apiKey: string;
@@ -6,6 +7,7 @@ export interface TeamboksPlatformConfig {
 
 export class TeamboksPlatform {
   public workspaces: WorkspacesClient;
+  public users: UsersClient;
 
   constructor(config: TeamboksPlatformConfig) {
     if (!config.apiKey) {
@@ -13,6 +15,7 @@ export class TeamboksPlatform {
     }
 
     this.workspaces = new WorkspacesClient(config.apiKey);
+    this.users = new UsersClient(config.apiKey);
   }
 }
 
